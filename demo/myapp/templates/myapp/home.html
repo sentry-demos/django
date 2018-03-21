@@ -1,0 +1,30 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+
+<div class="App">
+        <br><br>
+    <div classname="App-header">
+        <img src="static/sentry-glyph-black.png" alt="logo" class="App-logo">
+        <h1>Sentry.io -  Sample Error Page</h1>
+    </div>
+    <br>
+    <ul class="center list-group">
+        <li class="list-group-item">
+                <h3><a href="{% url 'undefined_variable' %}">Undefined Variable</a></h3>
+        </li>
+        <li class="list-group-item">
+                <h3><a href="{% url 'type_error' %}">Type Error</a></h3>
+        </li>
+        <li class="list-group-item">
+                <h3><a href="{% url 'wrong_num_args' %}">Wrong Number Of Arguments</a></h3>
+        </li>
+        <li class="list-group-item">
+                <h3><a href="{% url 'index_error' %}">Index Error</a></h3>
+        </li>
+        <li class="list-group-item">
+                <h3><a href="{% url 'div_zero' %}">Divide By 0</a></h3>
+        </li>
+    </ul>
+</div>
+{% endblock %}
