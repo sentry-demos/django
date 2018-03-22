@@ -1,7 +1,5 @@
 # Django Example for [getsentry](https://github.com/getsentry)
 
-![Sentry logo](_ReadMeImages/sentry-logo-black.png)
-
 ### Table of Contents
 
 - [Introduction](#introduction)
@@ -67,9 +65,8 @@ Run `./web.sh` from within this directory. This will start Django's development 
 
 Surfing to http://127.0.0.1:8000/ while the Django `runserver` process is active will load a generic menu with two links. The first link is to a page that works and the second one is to a page that will always generate an error.
 
-Depending on whether the `DEBUG` Django setting is `True` or `False`, surfing to the broken page will either generate a detailed stack trace or a generic 500 page. Either way, Raven should capture the exception from attempting to load the broken page and transmit it to Sentry. Check your Sentry dashboard for the event, which should look something like this:
+Depending on whether the `DEBUG` Django setting is `True` or `False`, surfing to the broken page will either generate a detailed stack trace or a generic 500 page. Either way, Raven should capture the exception from attempting to load the broken page and transmit it to Sentry.
 
-![Dashboard Example](_ReadMeImages/dashboard-example.png)
 
 ## Cleaning Up
 
