@@ -41,7 +41,7 @@ MY_SENTRY_DSN = 'https://<PUBLIC_DSN_KEY>:<PRIVATE_DSN_KEY>@sentry.io/<PROJECT_I
 
 For ease of isolating the demonstration code, it is best to use a [Python virtualenv](https://virtualenv.pypa.io/en/stable/) to contain the installed packages. Installing Python, pip, and virtualenv are outside the scope of this demo.
 
-This demo includes two scripts: one to create a virtual environment 
+This demo includes two scripts: one to create a virtual environment and install packages and the other to start the web frontend.
 
 ### Setup Script
 
