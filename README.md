@@ -1,21 +1,9 @@
 # Django Example for [getsentry](https://github.com/getsentry)
 
 ### Table of Contents
-
-- [Introduction](#introduction)
-- [About Django](#about-django)
 - [About This Demo](#about-this-demo)
 - [Running The Demo](#running-the-demo)
-
-## Introduction
-
-[Sentry](https://sentry.io/welcome/) is an open source tool that provides error tracking to show you every crash in your application as it happens, with the details needed to prioritize, identify, reproduce, and fix each issue.
-
-## About Django
-
-[Django](https://www.djangoproject.com/) is a popular web framework used for many projects large and small, including [Sentry itself](https://github.com/getsentry/sentry/).
-
-It includes an object-relational mapper, a templating engine, dynamically-generated administration interface, a versatile URL router, and [many more features](https://docs.djangoproject.com/en/2.0/intro/overview/).
+- [Cleaning Up](#cleaning-up)
 
 ## About This Demo
 
