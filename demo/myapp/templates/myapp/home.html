@@ -9,7 +9,21 @@
         <h1>Sentry.io -  Sample Error Page</h1>
     </div>
     <br>
+
+        <!-- <form action="/" method="post">
+                 {% csrf_token %}
+                <label for="your_name">Your name: </label>
+                <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+                <input type="submit" value="OK">
+        </form> -->
+
+    <h2>Hi, TODO.</h2>
+
     <ul class="center list-group">
+        <li class="list-group-item list-group-item-danger">
+                <h3>Python Errors</h3>
+        </li>
+
         <li class="list-group-item">
                 <h3><a href="{% url 'undefined_variable' %}">Undefined Variable</a></h3>
         </li>
