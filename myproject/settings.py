@@ -23,12 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '93^v05qag&_y6+g$(pvl+98d@yq2k26sj+$la68#b*x+71ji35'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
+    'localhost',
+    '37ef3c30.ngrok.io', # place your ngrok tunnel here
 ]
-
 
 # Application definition
 
@@ -53,6 +54,7 @@ RAVEN_CONFIG = {
     # release based on the git info.
     'release': raven.fetch_git_sha(os.path.abspath(os.curdir)),
 }
+SENTRY_CLIENT = 'myproject.djangoclient.DjangoClient'
 
 
 

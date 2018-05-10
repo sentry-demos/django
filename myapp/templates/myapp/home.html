@@ -2,6 +2,9 @@
 
 {% block content %}
 
+<script src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
+<script>Raven.config('https://53e15e97911f4cee96b05b5e5d72ca56@sentry.io/297017').install()</script>
+
 <div class="App">
         <br><br>
     <div class="App-header">
@@ -18,7 +21,6 @@
         </form>
     </div>
 
-
     <h2>Hi, {{email}}.</h2>
 
     <ul class="center list-group">
@@ -29,22 +31,32 @@
         <li class="list-group-item">
                 <h3><a href="/undefined_variable/?email={{ email}}">Undefined Variable</a></h3>
         </li>
+
         <li class="list-group-item">
-                <h3><a href="{% url 'type_error' %}">Type Error</a></h3>
-        </li>
-        <li class="list-group-item">
-                <h3><a href="{% url 'wrong_num_args' %}">Wrong Number Of Arguments</a></h3>
-        </li>
-        <li class="list-group-item">
-                <h3><a href="{% url 'index_error' %}">Index Error</a></h3>
-        </li>
-        <li class="list-group-item">
-                <h3><a href="{% url 'div_zero' %}">Divide By 0</a></h3>
+                <h3><a href="/index_error/?email={{ email}}">Index Error</a></h3>
         </li>
 
         <li class="list-group-item">
-                <h3><a href="{% url 'div_zero' %}">Javascript error</a></h3>
+                <h3><a href="type_error/?email={{ email}}">Type Error</a></h3>
         </li>
+        <li class="list-group-item">
+                <h3><a href="wrong_num_args/?email={{ email }}">Wrong Number Of Arguments</a></h3>
+        </li>
+
+        <li class="list-group-item">
+                <h3><a href="div_zero/?email={{ email}}">Divide By 0</a></h3>
+        </li>
+    </ul>
+
+    <ul class="center list-group">
+        <li class="list-group-item list-group-item-danger">
+                <h3>JavaScript Errors</h3>
+        </li>
+
+        <li class="list-group-item">
+                <h3><a onclick="(function() { var x = {}; x.something(); })()">Uncaught TypeError</a></h3>
+        </li>
+
     </ul>
 </div>
 {% endblock %}
