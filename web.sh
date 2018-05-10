@@ -9,4 +9,4 @@ if [ "${?}" -ne "0" ]; then
   exit 1
 fi
 
-python demo/manage.py runserver
+python manage.py runserver --insecure

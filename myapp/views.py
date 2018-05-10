@@ -2,12 +2,31 @@
 from __future__ import unicode_literals
 
 from django.views.generic.base import TemplateView
+# from raven.contrib.django.raven_compat.models import client
+from . import client
 
 # Create your views here.
 
+email = "user"
 
-class HomePageView(TemplateView):
+class BaseTemplateView(TemplateView):
     template_name = "myapp/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(BaseTemplateView, self).get_context_data(**kwargs)
+        context['email'] = self.request.GET.get('email') or 'user'
+        client.context.merge({'tags': {
+            'email': context['email']
+        }})
+        return context
+
+
+class HomePageView(BaseTemplateView):
+    template_name = "myapp/home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        return context
 
 
 def get_some_squares(n=3):
@@ -18,7 +37,7 @@ def get_some_squares(n=3):
     return reply
 
 
-class GoodView(TemplateView):
+class GoodView(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):
@@ -28,7 +47,7 @@ class GoodView(TemplateView):
         return context
 
 
-class BadView(TemplateView):
+class BadView(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):
@@ -39,7 +58,7 @@ class BadView(TemplateView):
             raise Exception('Bad View Loaded')
         return context
 
-class DivZero(TemplateView):
+class DivZero(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):
@@ -50,17 +69,17 @@ class DivZero(TemplateView):
         return context
 
 
-class UndefinedVariable(TemplateView):
+class UndefinedVariable(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):
         context = super(UndefinedVariable, self).get_context_data(**kwargs)
         context['good_or_bad'] = 'Broken'
         context['body_text'] = 'This will never be shown.'
-        a.size
+        c.size
         return context
 
-class TypeError(TemplateView):
+class TypeError(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):
@@ -70,7 +89,7 @@ class TypeError(TemplateView):
         [1, 2, 3].first("two")
         return context
 
-class IndexError(TemplateView):
+class IndexError(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):
@@ -81,7 +100,7 @@ class IndexError(TemplateView):
         a.fetch(1)
         return context
 
-class WrongNumArgs(TemplateView):
+class WrongNumArgs(BaseTemplateView):
     template_name = "myapp/goodbad.html"
 
     def get_context_data(self, **kwargs):

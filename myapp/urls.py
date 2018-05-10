@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^wrong_num_args/$', views.WrongNumArgs.as_view(), name='wrong_num_args'),
     url(r'^index_error/$', views.IndexError.as_view(), name='index_error'),
 
+    # url(r'^login/$', views.Login.as_view(), name='login_func'),
 ]

@@ -25,7 +25,9 @@ SECRET_KEY = '93^v05qag&_y6+g$(pvl+98d@yq2k26sj+$la68#b*x+71ji35'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -40,6 +42,19 @@ INSTALLED_APPS = [
     'raven.contrib.django.raven_compat',
     'myapp',
 ]
+
+import os
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'https://53e15e97911f4cee96b05b5e5d72ca56:988060867fa842fc8101e9d200cfd431@sentry.io/297017',
+    # 'dsn': 'http://9edf20f561954ea89a66e9763b8240ee:9ebcc25593d24d298d4f07e6a57f582a@localhost:9000/3',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.curdir)),
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,3 +136,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"), )
