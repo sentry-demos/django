@@ -33,7 +33,7 @@ class IndexError(BaseTemplateView):
         context = super(IndexError, self).get_context_data(**kwargs)
         context['good_or_bad'] = 'Broken'
         context['body_text'] = 'This will never be shown.'
-        a = [ 'one' ]
+        a = [ 'one', 'two' ]
         x = a[1]
         return context
 
