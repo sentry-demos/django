@@ -19,8 +19,6 @@ class BaseTemplateView(TemplateView):
                 'email': user_email
             })
         context['email'] = user_email or "guest"
-        context['good_or_bad'] = 'Broken'
-        context['body_text'] = 'This will never be shown.'
         return context
 
 class HomePageView(BaseTemplateView):
