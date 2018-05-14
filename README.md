@@ -16,7 +16,7 @@ The code for this demo is split up in a similar manner to the Django tutorial an
 ## Installing Dependencies
 
 1. Install the Raven library.
-`npm install -g sentry-cli`
+`npm install -g @sentry/cli`
 
 2. Add Raven to the Django project's `INSTALLED_APPS` [setting](https://github.com/sentry-demos/django/blob/7227b308d9f00368d3acde44c89fd650e8df7941/demo/myproject/settings/base.py#L40).
 
@@ -30,10 +30,10 @@ To keep the demo light, many key Django features were commented out of the gener
 
 Raven, the Sentry client library, uses a [DSN generated from Sentry](https://docs.sentry.io/quickstart/#configure-the-dsn) to collect errors and send them to the right place.
 
-Replace the invalid DSN in [development.py](demo/myproject/settings/development.py) with a DSN for one of your projects. You can find these under Project Settings > Client Keys (DSN) on the Sentry dashboard.
+Specify the DSN as an environment variable. DSN can be found under Project Settings > Client Keys (DSN) on the Sentry dashboard.
 
 ```
-MY_SENTRY_DSN = 'https://<PUBLIC_DSN_KEY>:<PRIVATE_DSN_KEY>@sentry.io/<PROJECT_ID>'
+export SENTRY_PRIVATE_DSN='https://<PUBLIC_DSN_KEY>:<PRIVATE_DSN_KEY>@sentry.io/<PROJECT_ID>'
 ```
 
 
@@ -76,8 +76,4 @@ Sentry is open source! Want to get started contributing to Sentry? Our [internal
 
 ## Anything Else?
 
-[Tweet](https://twitter.com/getsentry), [email](hello@sentry.io), or visit our [forum](https://forum.sentry.io)!
-
-## A Footnote On Names
-
-Naming is intentionally different at each stage (e.g. `worker` for the command, `backend` in the code, `async` for the settings file) to be contrary to the many examples that ambiguously use "celery" and "app", which can sometimes complicate import ordering.
+[Docs](https://docs.sentry.io), [Tweet](https://twitter.com/getsentry), [email](hello@sentry.io), or visit our [forum](https://forum.sentry.io)!

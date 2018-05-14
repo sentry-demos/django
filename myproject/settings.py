@@ -48,10 +48,7 @@ import os
 import raven
 
 RAVEN_CONFIG = {
-    'dsn': 'https://53e15e97911f4cee96b05b5e5d72ca56:988060867fa842fc8101e9d200cfd431@sentry.io/297017',
-    # 'dsn': 'http://9edf20f561954ea89a66e9763b8240ee:9ebcc25593d24d298d4f07e6a57f582a@localhost:9000/3',
-    # If you are using git, you can also automatically configure the
-    # release based on the git info.
+    'dsn': os.environ.get('SENTRY_PRIVATE_DSN'),
     'release': raven.fetch_git_sha(os.path.abspath(os.curdir)),
 }
 SENTRY_CLIENT = 'myproject.djangoclient.DjangoClient'

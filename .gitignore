@@ -1,2 +1,7 @@
 *.pyc
 django_example/
+.idea
+.setup_already_run
+db.sqlite3
+.vscode
+.DS_Store
