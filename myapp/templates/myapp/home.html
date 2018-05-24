@@ -2,8 +2,7 @@
 
 {% block content %}
 
-<script src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
-<script>Raven.config('https://53e15e97911f4cee96b05b5e5d72ca56@sentry.io/297017').install()</script>
+
 
 <div class="App">
         <br><br>
@@ -13,15 +12,12 @@
     </div>
     <br>
 
-    <div class="center form-group">
-        <form action="/" method="get" class="form-group">
-            <!--{% csrf_token %}-->
-            <input id="email" type="email" name="email" class="form-control" placeholder="Enter email">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
-    <h2>Hi, {{email}}.</h2>
+    {% if user.is_authenticated %}
+        <h2>Hi, {{user.username}}.</h2>
+        <script>Raven.setUserContext({ 'user': '{{ user.username }}' });</script>
+    {% else %}
+        <p>Welcome, new user. Please log in.</p>
+    {% endif %}
 
     <ul class="center list-group">
         <li class="list-group-item list-group-item-danger">
@@ -29,22 +25,22 @@
         </li>
 
         <li class="list-group-item">
-                <h3><a href="/undefined_variable/?email={{ email}}">Undefined Variable</a></h3>
+                <h3><a href="/undefined_variable">Undefined Variable</a></h3>
         </li>
 
         <li class="list-group-item">
-                <h3><a href="/index_error/?email={{ email}}">Index Error</a></h3>
+                <h3><a href="/index_error">Index Error</a></h3>
         </li>
 
         <li class="list-group-item">
-                <h3><a href="/type_error/?email={{ email}}">Type Error</a></h3>
+                <h3><a href="/type_error">Type Error</a></h3>
         </li>
         <li class="list-group-item">
-                <h3><a href="/wrong_num_args/?email={{ email }}">Wrong Number Of Arguments</a></h3>
+                <h3><a href="/wrong_num_args">Wrong Number Of Arguments</a></h3>
         </li>
 
         <li class="list-group-item">
-                <h3><a href="/div_zero/?email={{ email}}">Divide By 0</a></h3>
+                <h3><a href="/div_zero">Divide By 0</a></h3>
         </li>
     </ul>
 

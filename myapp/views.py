@@ -13,12 +13,6 @@ class BaseTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(BaseTemplateView, self).get_context_data(**kwargs)
-        user_email = self.request.GET.get('email', False)
-        if user_email and user_email != 'guest':
-            client.user_context({
-                'email': user_email
-            })
-        context['email'] = user_email or "guest"
         return context
 
 class HomePageView(BaseTemplateView):
