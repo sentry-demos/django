@@ -57,6 +57,13 @@ Or run the set up script (`setup.sh`) in this directory:
 `./setup.sh`
 
 
+### Migrate DB
+`python manage.py migrate`
+
+### Create superuser/user
+`python manage.py createsuperuser`
+
+
 ### Starting The Web Frontend
 
 Run `./web.sh` from within this directory. This will start Django's development server (`runserver`) on the local machine.
