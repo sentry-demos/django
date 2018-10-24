@@ -2,8 +2,12 @@
 
 {% block content %}
 
-<script src="https://cdn.ravenjs.com/3.22.1/raven.min.js" crossorigin="anonymous"></script>
-<script>Raven.config('https://53e15e97911f4cee96b05b5e5d72ca56@sentry.io/297017').install()</script>
+<script src="https://browser.sentry-cdn.com/4.1.1/bundle.min.js" crossorigin="anonymous"></script>
+<script>
+   Sentry.init({
+        dsn: 'https://9057d77c278543aa9fa04f01448884f6@sentry.io/279552'
+   });
+</script>
 
 <div class="App">
         <br><br>
