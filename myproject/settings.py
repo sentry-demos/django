@@ -40,19 +40,15 @@ INSTALLED_APPS = [
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
     'django.contrib.staticfiles',
-    'raven.contrib.django.raven_compat',
     'myapp',
 ]
 
-import os
-import raven
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
-RAVEN_CONFIG = {
-    'dsn': os.environ.get('SENTRY_PRIVATE_DSN'),
-    'release': raven.fetch_git_sha(os.path.abspath(os.curdir)),
-}
-SENTRY_CLIENT = 'myproject.djangoclient.DjangoClient'
-
+sentry_sdk.init(
+    dsn="https://53e15e97911f4cee96b05b5e5d72ca56@sentry.io/297017"
+)
 
 
 MIDDLEWARE = [

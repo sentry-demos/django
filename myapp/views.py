@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 
 from django.views.generic.base import TemplateView
-# from raven.contrib.django.raven_compat.models import client
-from . import client
+
 
 # Create your views here.
 
