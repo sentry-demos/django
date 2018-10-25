@@ -1,4 +1,4 @@
-# Table of Contents
+## Table of Contents
 - [Installing Dependencies](#installing-dependencies)
 - [Configuring Sentry](#configuring-sentry)
 - [Running The Demo](#running-the-demo)
