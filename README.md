@@ -1,4 +1,8 @@
-# Django Example for [getsentry](https://github.com/getsentry)
+# Table of Contents
+- [Installing Dependencies](#installing-dependencies)
+- [Configuring Sentry](#configuring-sentry)
+- [Running The Demo](#running-the-demo)
+- [Cleaning Up](#cleaning-up)
 
 ## Installing Dependencies
 
@@ -15,7 +19,7 @@ This demo uses npm, pip, and virtualenv.
 
 ## Configuring Sentry
 
-The Sentry client library requires a [DSN generated from Sentry](https://docs.sentry.io/quickstart/#configure-the-dsn) which is specifies which project the event is sent to. Add the import and configuration code in `settings.py`:
+The Sentry client library requires a [DSN generated from Sentry](https://docs.sentry.io/quickstart/#configure-the-dsn) which  specifies the project events will be sent to. Add the import and configuration code to `settings.py`:
 
  ```
 import sentry_sdk
@@ -26,16 +30,7 @@ sentry_sdk.init(
 )
 ```
 
-Further details [here](https://docs.sentry.io/platforms/python/django/).
-
-
-## Configuring Sentry
-
-Raven, the Sentry client library, uses a DSN generated from Sentry to collect errors and send them to the right place.
-
-Specify the DSN as an environment variable. DSN can be found under Project Settings > Client Keys (DSN) on the Sentry dashboard.
-
-`export SENTRY_PRIVATE_DSN='https://<PUBLIC_DSN_KEY>:<PRIVATE_DSN_KEY>@sentry.io/<PROJECT_ID>'`
+Further details on configuring Sentry [here](https://docs.sentry.io/platforms/python/django/).
 
 ## Running The Demo
 
