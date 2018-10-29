@@ -56,6 +56,8 @@ To start Django's development server (`runserver`) on the local machine, run the
 
 Go to http://127.0.0.1:8000/ to see the demo page.
 
+![Alt Text](django_demo_setup.gif)
+
 
 ## Cleaning Up
 
