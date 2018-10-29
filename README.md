@@ -6,7 +6,7 @@
 
 ## Installing Dependencies
 
-1.Install sentry-python:
+1. Install sentry-python:
 `pip install --upgrade sentry-sdk`
 
 2. Include `sentry-sdk` in [`requirements.txt`](https://github.com/sentry-demos/django/blob/master/requirements.txt#L2). Verfiy that the version is accurate:
