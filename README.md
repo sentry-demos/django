@@ -6,14 +6,14 @@
 
 ## Installing Dependencies
 
-1. Install the Raven library:
-`npm install -g @sentry/cli`
-
-2. Install sentry-python:
+1.Install sentry-python:
 `pip install --upgrade sentry-sdk`
 
-3. Include `sentry-sdk` in [`requirements.txt`](https://github.com/sentry-demos/django/blob/master/requirements.txt#L2). Verfiy that the version is accurate:
+2. Include `sentry-sdk` in [`requirements.txt`](https://github.com/sentry-demos/django/blob/master/requirements.txt#L2). Verfiy that the version is accurate:
 `pip show sentry-sdk | grep Version`
+
+3. (optional) Install the Sentry's command line tool for easier release tracking:
+`npm install -g @sentry/cli`
 
 This demo uses npm, pip, and virtualenv.
 
