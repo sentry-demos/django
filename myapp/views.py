@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.views.generic.base import TemplateView
 
+from sentry_sdk import configure_scope
 
 # Create your views here.
 
@@ -14,9 +15,10 @@ class BaseTemplateView(TemplateView):
         context = super(BaseTemplateView, self).get_context_data(**kwargs)
         user_email = self.request.GET.get('email', False)
         if user_email and user_email != 'guest':
-            client.user_context({
-                'email': user_email
-            })
+
+            with configure_scope() as scope:
+                scope.user = {"email": "john.doe@example.com"}
+
         context['email'] = user_email or "guest"
         return context
 
