@@ -17,7 +17,7 @@ class BaseTemplateView(TemplateView):
         if user_email and user_email != 'guest':
 
             with configure_scope() as scope:
-                scope.user = {"email": "john.doe@example.com"}
+                scope.user = {"email": user_email}
 
         context['email'] = user_email or "guest"
         return context
