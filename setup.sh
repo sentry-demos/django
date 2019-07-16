@@ -6,7 +6,7 @@ if [ -f .setup_already_run ]; then
 fi
 
 # create empty virtual environment
-virtualenv django_example
+virtualenv -p python3 django_demo_venv
 
 if [ "${?}" -ne "0" ]; then
   echo "Error creating virtualenv: quitting setup"
@@ -14,7 +14,7 @@ if [ "${?}" -ne "0" ]; then
 fi
 
 # activate the new virtual environment
-. django_example/bin/activate
+source django_demo_venv/bin/activate
 
 if [ "${?}" -ne "0" ]; then
   echo "Error activating virtualenv: quitting setup"

@@ -44,8 +44,8 @@ Run the set up script (`setup.sh`) in this directory:
 
 You can also set up by running the following commands:
 ```
-virtualenv django_example              # create a new virtual environment
-. django_example/bin/activate          # and use it
+virtualenv django_demo_venv              # create a new virtual environment
+. django_demo_venv/bin/activate          # and use it
 pip install -r ./requirements.txt      # install python packages
 ```
 
@@ -63,7 +63,7 @@ Go to http://127.0.0.1:8000/ to see the demo page.
 
 Pressing Ctrl-C once in each terminal window should stop Django's development server.
 
-`rm -r django_example` will delete the virtualenv directory containing all the installed Python packages.
+`rm -r django_demo_venv` will delete the virtualenv directory containing all the installed Python packages.
 
 ## About This Demo
 
