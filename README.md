@@ -10,7 +10,7 @@ This project uses Django 2.2 that requires Python 3
 1. Install Python 3:
 `brew install python3`
 
-2. Install the Sentry's command line tool to use release tracking and Github integration for commit data:
+2. Install Sentry's command line tool to use release tracking and Github integration for commit data:
 `npm install -g @sentry/cli`
 
 This demo uses npm, pip, and virtualenv.
@@ -56,9 +56,9 @@ To start Django's development server (`runserver`) on the local machine, run the
 ### Demo Script
 
 This demo uses Django's rest-framework package and offers 3 API endpoints:
-1. http://127.0.0.1:8000/handled - generates a runtime error excplicitly reported to Sentry though the SDk's captureException
-2. http://127.0.0.1:8000/unhandled - generates an unhandled runtime error reported 
-3. http://127.0.0.1:8000/checkout - can be used with the [Sentry REACT demo store front demo](https://github.com/sentry-demos/react)
+1. http://localhost:8000/handled - generates a runtime error excplicitly reported to Sentry though the SDk's captureException
+2. http://localhost:8000/unhandled - generates an unhandled runtime error reported 
+3. http://localhost:8000/checkout - can be used with the [Sentry REACT demo store front demo](https://github.com/sentry-demos/react)
     This endpoint can also be used with directly through the Django REST Framework web UI. To generate an error paste the following JSON payload in the POST payload text area:
 
 
