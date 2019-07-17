@@ -73,9 +73,7 @@ class InventoreyView(SentryContextMixin, APIView):
         order = json.loads(body_unicode)
         cart = order['cart']
         process_order(cart)
-        return Response(InventoryData)
-
-    
+        return Response(InventoryData) 
 
 
 class HandledErrorView(APIView):

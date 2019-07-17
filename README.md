@@ -5,14 +5,12 @@
 - [Cleaning Up](#cleaning-up)
 
 ## Installing Dependencies
+This project uses Django 2.2 that requires Python 3
 
-1. Install sentry-python:
-`pip install --upgrade sentry-sdk`
+1. Install Python 3:
+`brew install python3`
 
-2. Include `sentry-sdk` in [`requirements.txt`](https://github.com/sentry-demos/django/blob/master/requirements.txt#L2). Verfiy that the version is accurate:
-`pip show sentry-sdk | grep Version`
-
-3. (optional) Install the Sentry's command line tool for easier release tracking:
+2. Install the Sentry's command line tool to use release tracking and Github integration for commit data:
 `npm install -g @sentry/cli`
 
 This demo uses npm, pip, and virtualenv.
@@ -34,7 +32,7 @@ Further details on configuring Sentry [here](https://docs.sentry.io/platforms/py
 
 ## Running The Demo
 
-This demo includes two scripts: one to create a virtual environment and install packages and the other to start the web frontend.
+This demo includes two scripts: one to create a virtual environment (`django_demo_venv`) and install packages and the other to start the web frontend.
 
 ### Setup Script
 
@@ -49,12 +47,33 @@ virtualenv django_demo_venv              # create a new virtual environment
 pip install -r ./requirements.txt      # install python packages
 ```
 
-### Starting The Web Frontend
+### Creating a Release & Starting the Server
 
 To start Django's development server (`runserver`) on the local machine, run the `web.sh` script from within this directory:
 `./web.sh`
 
-Go to http://127.0.0.1:8000/ to see the demo page.
+
+### Demo Script
+
+This demo uses Django's rest-framework package and offers 3 API endpoints:
+1. http://127.0.0.1:8000/handled - generates a runtime error excplicitly reported to Sentry though the SDk's captureException
+2. http://127.0.0.1:8000/unhandled - generates an unhandled runtime error reported 
+3. http://127.0.0.1:8000/checkout - can be used with the [Sentry REACT demo store front demo](https://github.com/sentry-demos/react)
+    This endpoint can also be used with directly through the Django REST Framework web UI. To generate an error paste the following JSON payload in the POST payload text area:
+
+
+```
+    {
+    "cart": [
+        {"id": "wrench", "name": "Wrench", "price": 500, "img": "/static/media/wrench.0371ec11.png"},
+        {"id": "wrench", "name": "Wrench", "price": 500, "img": "/static/media/wrench.0371ec11.png"}
+    ],
+    "email": "0s5r@yahoo.com"
+    }
+
+```
+
+
 
 ![Alt Text](django_demo_setup.gif)
 
@@ -64,21 +83,3 @@ Go to http://127.0.0.1:8000/ to see the demo page.
 Pressing Ctrl-C once in each terminal window should stop Django's development server.
 
 `rm -r django_demo_venv` will delete the virtualenv directory containing all the installed Python packages.
-
-## About This Demo
-
-This demo provides a basic example of instrumenting [a Django project with Sentry](https://docs.sentry.io/clients/python/integrations/django/). To play with this demo, you'll need to create a Sentry account, and [update the project configuration](#configuring-sentry) with your DSN.
-
-The code for this demo is split up in a similar manner to the Django tutorial and most of the code was generated from `django-admin startproject` and `python manage.py startapp`. It includes a single "project", `myproject`, and a single "app", `myapp`. `myproject` contains the settings and global URL routing, and `myapp` contains views, templates, and static files.
-
-## Contributing
-
-To keep the demo light, many key Django features were commented out of the generated code. In particular, no ORM models are defined so there is no need to create or apply migrations. (A sqlite database file may get generated but it's safe to delete.)
-
-> Note: This demo uses Django 1.11 which is a "long-term support" (LTS) release but not the latest version. This was selected on the assumption that existing applications might not have upgraded yet. The procedure for integrating sentry-python SDK with Django 2.0+ should be very similar.
-
-Sentry is open source! Want to get started contributing to Sentry? Our [internal documentation](https://docs.sentry.io/internal/) has you covered.
-
-## Anything Else?
-
-[Docs](https://docs.sentry.io), [Tweet](https://twitter.com/getsentry), [email](hello@sentry.io), or visit our [forum](https://forum.sentry.io)!
