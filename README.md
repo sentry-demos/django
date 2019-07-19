@@ -82,4 +82,8 @@ This demo uses Django's rest-framework package and offers 3 API endpoints:
 
 Pressing Ctrl-C once in each terminal window should stop Django's development server.
 
-`rm -r django_demo_venv` will delete the virtualenv directory containing all the installed Python packages.
+To deactivate and remove the virtualenv run the following commands directly:
+```
+deactivate                          # deactivate the virtualenv
+rm -r django_demo_venv              # will delete the virtualenv directory
+```

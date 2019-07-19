@@ -8,10 +8,9 @@ from rest_framework.views import APIView
 from .serializers import InventorySerializer
 from .models import Inventory
 
-
-
-
-InventoryData = [{"name": "wrench", "count": 1},  {"name": "nails", "count": 1}, {"name": "hammer", "count": 1}]
+InventoryData = [{"name": "wrench", "count": 1},  
+                 {"name": "nails", "count": 1}, 
+                 {"name": "hammer", "count": 1}]
 
 def find_in_inventory(itemId):
     for item in InventoryData:
@@ -30,8 +29,7 @@ def process_order(cart):
         else:
             inventoryItem['count'] -= 1
             print( 'Success: ' + itemID + ' was purchased, remaining stock is ' + str(inventoryItem['count']) )
-    InventoryData = tempInventory 
-
+    InventoryData = tempInventory
 
 class SentryContextMixin(object):
 

@@ -32,3 +32,4 @@ fi
 touch .setup_already_run
 echo "Setup completed successfully"
 exit 0
+
