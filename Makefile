@@ -7,7 +7,15 @@ SENTRY_PROJECT=sentry-django-rest-demo
 VERSION=`sentry-cli releases propose-version`
 REPO=sentry-demos/django
 
-deploy: create_release associate_commits run_django
+deploy: create_release associate_commits set_up
+
+set_up:
+	(\
+		python3 -m venv ./django_demo_venv; \
+		source ./django_demo_venv/bin/activate; \
+		pip install -r ./requirements.txt; \
+		make run_django; \
+	)
 
 create_release:
 	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(VERSION)
@@ -17,4 +25,4 @@ associate_commits:
 		set-commits $(VERSION) --commit "$(REPO)@$(VERSION)"
 
 run_django:
-	python manage.py runserver --insecure
+	python manage.py runserver

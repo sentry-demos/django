@@ -36,15 +36,14 @@ This demo includes two scripts: one to create a virtual environment (`django_dem
 
 ### Setup Script
 
-Run the set up script (`setup.sh`) in this directory:
-`./setup.sh`
-
-
-You can also set up by running the following commands:
+To set up and run the server run command:
 ```
-virtualenv django_demo_venv              # create a new virtual environment
-. django_demo_venv/bin/activate          # and use it
-pip install -r ./requirements.txt      # install python packages
+make install
+```
+
+To set up, **deploy a new version** and run the server run command:
+```
+make deploy
 ```
 
 ### Creating a Release & Starting the Server
