@@ -8,10 +8,21 @@
 This project uses Django 2.2 that requires Python 3
 
 1. Install Python 3:
-`brew install python3`
+```
+brew install python3
+```
 
-2. Install Sentry's command line tool to use release tracking and Github integration for commit data:
-`npm install -g @sentry/cli`
+2. Install `virtualenv` and `virtualenvwrapper`
+```
+pip3 install virtualenv virtualenvwrapper
+echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+exec bash
+```
+
+3. Install Sentry's command line tool to use release tracking and Github integration for commit data:
+```
+npm install -g @sentry/cli
+```
 
 This demo uses npm, pip, and virtualenv.
 
@@ -32,31 +43,34 @@ Further details on configuring Sentry [here](https://docs.sentry.io/platforms/py
 
 ## Running The Demo
 
-This demo includes two scripts: one to create a virtual environment (`django_demo_venv`) and install packages and the other to start the web frontend.
+Create a python-3 virtualenv (see below) and run `deploy` target in `Makefile`.
 
-### Setup Script
+### Virtualenv setup
 
-To set up and run the server run command:
+Setup and activate a Python 3 virtual environment in the project root:
 ```
-make install
+mkvirtualenv --python=python3 sentry-demo-django
 ```
 
-To set up, **deploy a new version** and run the server run command:
+To use virtualenv:
+```
+workon sentry-demo-django
+```
+
+
+### Runing Django
+
+Running the following command will install relevant python libraries and run django server
 ```
 make deploy
 ```
 
-### Creating a Release & Starting the Server
 
-To start Django's development server (`runserver`) on the local machine, run the `web.sh` script from within this directory:
-`./web.sh`
-
-
-### Demo Script
+### Demo Specs
 
 This demo uses Django's rest-framework package and offers 3 API endpoints:
 1. http://localhost:8000/handled - generates a runtime error excplicitly reported to Sentry though the SDk's captureException
-2. http://localhost:8000/unhandled - generates an unhandled runtime error reported 
+2. http://localhost:8000/unhandled - generates an unhandled runtime error reported
 3. http://localhost:8000/checkout - can be used with the [Sentry REACT demo store front demo](https://github.com/sentry-demos/react)
     This endpoint can also be used with directly through the Django REST Framework web UI. To generate an error paste the following JSON payload in the POST payload text area:
 
@@ -64,25 +78,25 @@ This demo uses Django's rest-framework package and offers 3 API endpoints:
 ```
     {
     "cart": [
-        {"id": "wrench", "name": "Wrench", "price": 500, "img": "/static/media/wrench.0371ec11.png"},
-        {"id": "wrench", "name": "Wrench", "price": 500, "img": "/static/media/wrench.0371ec11.png"}
+        {"id": "wrench", "name": "Wrench", "price": 500},
+        {"id": "wrench", "name": "Wrench", "price": 500}
     ],
-    "email": "0s5r@yahoo.com"
+    "email": "user@email.com"
     }
-
 ```
 
-
-
 ![Alt Text](django_demo_setup.gif)
-
 
 ## Cleaning Up
 
 Pressing Ctrl-C once in each terminal window should stop Django's development server.
 
-To deactivate and remove the virtualenv run the following commands directly:
+To deactivate the virtualenv sentry-demo-django:
 ```
-deactivate                          # deactivate the virtualenv
-rm -r django_demo_venv              # will delete the virtualenv directory
+deactivate
+```
+
+To remove the virtualenv: 
+```
+rmvirtualenv sentry-demo-django
 ```

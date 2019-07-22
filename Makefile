@@ -1,5 +1,5 @@
 # Must have `sentry-cli` installed globally
-# Following variable must be passed in
+# Require SENTRY_AUTH_TOKEN environment variable
 #  SENTRY_AUTH_TOKEN=<your_auth_token>
 
 SENTRY_ORG=testorg-az
@@ -7,15 +7,10 @@ SENTRY_PROJECT=sentry-django-rest-demo
 VERSION=`sentry-cli releases propose-version`
 REPO=sentry-demos/django
 
-deploy: create_release associate_commits set_up
+deploy: install create_release associate_commits run_django
 
-set_up:
-	(\
-		python3 -m venv ./django_demo_venv; \
-		source ./django_demo_venv/bin/activate; \
-		pip install -r ./requirements.txt; \
-		make run_django; \
-	)
+install:
+	pip install -r ./requirements.txt
 
 create_release:
 	sentry-cli releases -o $(SENTRY_ORG) new -p $(SENTRY_PROJECT) $(VERSION)
