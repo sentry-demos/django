@@ -1,5 +1,6 @@
 *.pyc
-django_example/
+django_demo_venv/
+migrations/
 .idea
 .setup_already_run
 db.sqlite3

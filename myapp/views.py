@@ -1,59 +1,90 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.views.generic.base import TemplateView
+import sentry_sdk
+import json
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from sentry_sdk import configure_scope
+from .serializers import InventorySerializer
+from .models import Inventory
+
+InventoryData = [{"name": "wrench", "count": 1},  
+                 {"name": "nails", "count": 1}, 
+                 {"name": "hammer", "count": 1}]
+
+def find_in_inventory(itemId):
+    for item in InventoryData:
+        if item['name'] == itemId:
+            return item
+    raise Exception("Item : " + itemId + " not in inventory ")
+
+def process_order(cart):
+    global InventoryData
+    tempInventory = InventoryData
+    for item in cart:
+        itemID = item['id']
+        inventoryItem = find_in_inventory(itemID)
+        if inventoryItem['count'] <= 0:
+            raise Exception("Not enough inventory for " + itemID) 
+        else:
+            inventoryItem['count'] -= 1
+            print( 'Success: ' + itemID + ' was purchased, remaining stock is ' + str(inventoryItem['count']) )
+    InventoryData = tempInventory
+
+class SentryContextMixin(object):
+
+    def dispatch(self, request, *args, **kwargs):
+        if (request.body):
+            body_unicode = request.body.decode('utf-8')
+            order = json.loads(body_unicode)
+
+            with sentry_sdk.configure_scope() as scope:
+                    scope.user = { "email" : order["email"] }
+            
+        transactionId = request.headers.get('X-Transaction-ID')
+        sessionId = request.headers.get('X-Session-ID')
+        
+        global InventoryData
+
+        with sentry_sdk.configure_scope() as scope:
+            if(transactionId):
+                scope.set_tag("transaction_id", transactionId)
+
+            if(sessionId):
+                scope.set_tag("session-id", sessionId)
+
+            if(Inventory):
+                scope.set_extra("inventory", InventoryData)
+
+        return super(SentryContextMixin, self).dispatch(request, *args, **kwargs)
 
 # Create your views here.
+class InventoreyView(SentryContextMixin, APIView):
+
+    def get(self, request):
+        results = InventorySerializer(InventoryData, many=True).data
+        return Response(results)
 
 
-class BaseTemplateView(TemplateView):
-    template_name = "myapp/home.html"
+    def post(self, request, format=None):
+        body_unicode = request.body.decode('utf-8')
+        order = json.loads(body_unicode)
+        cart = order['cart']
+        process_order(cart)
+        return Response(InventoryData) 
 
-    def get_context_data(self, **kwargs):
-        context = super(BaseTemplateView, self).get_context_data(**kwargs)
-        user_email = self.request.GET.get('email', False)
-        if user_email and user_email != 'guest':
 
-            with configure_scope() as scope:
-                scope.user = {"email": user_email}
+class HandledErrorView(APIView):
+    def get(self, request):
+        try:
+            '2' + 2
+        except Exception as err:
+            sentry_sdk.capture_exception(err)
+        return Response()
 
-        context['email'] = user_email or "guest"
-        return context
+class UnHandledErrorView(APIView):
+     def get(self, request):
+        obj = {}
+        obj['keyDoesntExist']
+        return Response()
 
-class HomePageView(BaseTemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(HomePageView, self).get_context_data(**kwargs)
-        return context
-
-class IndexError(BaseTemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(IndexError, self).get_context_data(**kwargs)
-        a = [ 'one', 'two' ]
-        x = a[1]
-        return context
-
-class DivZero(BaseTemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(DivZero, self).get_context_data(**kwargs)
-        1/0
-        return context
-
-class UndefinedVariable(BaseTemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(UndefinedVariable, self).get_context_data(**kwargs)
-        c.size
-        return context
-
-class TypeError(BaseTemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(TypeError, self).get_context_data(**kwargs)
-        [1, 2, 3].first("two")
-        return context
-
-class WrongNumArgs(BaseTemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(WrongNumArgs, self).get_context_data(**kwargs)
-        [1, 2, 3].first("two")
-        return context
