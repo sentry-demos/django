@@ -46,9 +46,10 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 sentry_sdk.init(
-    dsn="https://5628643adff74f09ab15ef242d3faddd@sentry.io/225677",
+    dsn="YOUR_DSN",
     integrations=[DjangoIntegration()],
-    release=os.environ.get("VERSION")
+    release=os.environ.get("VERSION"),
+    environment="Production"
 )
 
 MIDDLEWARE = [

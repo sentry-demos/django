@@ -3,7 +3,7 @@
 #  SENTRY_AUTH_TOKEN=<your_auth_token>
 
 SENTRY_ORG=testorg-az
-SENTRY_PROJECT=sentry-django-rest-demo
+SENTRY_PROJECT=django-lr
 VERSION=`sentry-cli releases propose-version`
 REPO=sentry-demos/django
 
@@ -20,4 +20,4 @@ associate_commits:
 		set-commits $(VERSION) --commit "$(REPO)@$(VERSION)"
 
 run_django:
-	python manage.py runserver
+	VERSION=$(VERSION) python manage.py runserver
