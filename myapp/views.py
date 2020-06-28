@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 
 from .serializers import InventorySerializer
 from .models import Inventory
+from sentry_sdk import add_breadcrumb
 
 InventoryData = [{"name": "wrench", "count": 1},  
                  {"name": "nails", "count": 1}, 
@@ -19,6 +20,11 @@ def find_in_inventory(itemId):
     raise Exception("Item : " + itemId + " not in inventory ")
 
 def process_order(cart):
+    add_breadcrumb(
+    category='Process Order',
+    message='Step taken to process an order',
+    level='error',
+    )
     global InventoryData
     tempInventory = InventoryData
     for item in cart:
@@ -42,16 +48,12 @@ class SentryContextMixin(object):
                     scope.user = { "email" : order["email"] }
             
         transactionId = request.headers.get('X-Transaction-ID')
-        sessionId = request.headers.get('X-Session-ID')
         
         global InventoryData
 
         with sentry_sdk.configure_scope() as scope:
             if(transactionId):
                 scope.set_tag("transaction_id", transactionId)
-
-            if(sessionId):
-                scope.set_tag("session-id", sessionId)
 
             if(Inventory):
                 scope.set_extra("inventory", InventoryData)
@@ -76,6 +78,9 @@ class InventoreyView(SentryContextMixin, APIView):
 
 class HandledErrorView(APIView):
     def get(self, request):
+
+# Comment out the code below to set up capture_message
+#       sentry_sdk.capture_message("You caught me")        
         try:
             '2' + 2
         except Exception as err:
